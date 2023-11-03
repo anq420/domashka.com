@@ -1,0 +1,47 @@
+from random import randint
+import sys
+
+
+def igra():
+    while True:
+        min_count = int(input('Введите минимальное кол-во чисел (не меньше 5): '))
+        max_count = int(input('Введите максимальное кол-во чисел (не больше 30): '))
+        if min_count >= 5 < max_count <= 30:
+            break
+        else:
+            print('Введите значения заново')
+    
+    def making_digits():
+        spisok = []
+        for i in range(3):
+            a = randint (min_count, max_count)
+            spisok.append(a)
+        print (f'Я загадал кое-какие числа {spisok}. Угадаешь какие?') #вывожу здесь список для проверки того, что "загадывает" комп 
+        return spisok
+    
+    def users_digits():
+        spisok = []
+        for i in range(3):
+            a = input('Введите число: ')
+            if a == 'exit':
+                sys.exit()
+            else:
+                a_1 = int(a)
+                spisok.append(a_1)
+        print (f'Вы загадали эти числа: {spisok}') #также вывожу список того, что загадывает юзер, чтобы убедиться, что всё работает как нужно
+        return spisok
+    
+    def proverka():
+        machines_digits = making_digits()
+        while True:
+            common_digits = set(users_digits()).intersection(set(machines_digits))
+            if len(common_digits) == 3:
+                print('Вы победили')
+                break
+            elif len(common_digits) == 0:
+                print('Вы ничего не угадали')
+            else:
+                print(f'Вы проиграли, но угадали {len(common_digits)} число(а)')
+    return proverka()
+
+print(igra())
