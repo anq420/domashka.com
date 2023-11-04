@@ -12,23 +12,23 @@ def igra():
             print('Введите значения заново')
     
     def making_digits():
-        spisok = []
-        for i in range(3):
+        spisok = set()
+        while len(spisok) < 3:
             a = randint (min_count, max_count)
-            spisok.append(a)
-        print (f'Я загадал кое-какие числа {spisok}. Угадаешь какие?') #вывожу здесь список для проверки того, что "загадывает" комп 
+            spisok.add(a)
+        print (f'Я загадал кое-какие числа {spisok}. Угадаешь какие?') #вывожу здесь список для проверки того, что "загадывает" комп - можно выбросить строку
         return spisok
     
     def users_digits():
-        spisok = []
+        spisok = set()
         for i in range(3):
             a = input('Введите число: ')
             if a == 'exit':
                 sys.exit()
             else:
                 a_1 = int(a)
-                spisok.append(a_1)
-        print (f'Вы загадали эти числа: {spisok}') #также вывожу список того, что загадывает юзер, чтобы убедиться, что всё работает как нужно
+                spisok.add(a_1)
+        print (f'Вы загадали эти числа: {spisok}') #также вывожу список того, что загадывает юзер, чтобы убедиться, что всё работает как нужно - можно выбросить строку
         return spisok
     
     def proverka():
@@ -42,6 +42,7 @@ def igra():
                 print('Вы ничего не угадали')
             else:
                 print(f'Вы проиграли, но угадали {len(common_digits)} число(а)')
+        return f'Загаданные мной числа - {common_digits}'
     return proverka()
 
 print(igra())
