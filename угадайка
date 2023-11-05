@@ -4,8 +4,8 @@ import sys
 
 def igra():
     while True:
-        min_count = int(input('Введите минимальное кол-во чисел (не меньше 5): '))
-        max_count = int(input('Введите максимальное кол-во чисел (не больше 30): '))
+        min_count = int(input('Введите минимальное число, которого будут загадываться числа (не меньше 5): '))
+        max_count = int(input('Введите максимальное число, до которого будут загадываться числа (не больше 30): '))
         if min_count >= 5 < max_count <= 30:
             break
         else:
@@ -26,8 +26,7 @@ def igra():
             if a == 'exit':
                 sys.exit()
             else:
-                a_1 = int(a)
-                spisok.add(a_1)
+                spisok.add(int(a))
         print (f'Вы загадали эти числа: {spisok}') #также вывожу список того, что загадывает юзер, чтобы убедиться, что всё работает как нужно - можно выбросить строку
         return spisok
     
@@ -42,7 +41,8 @@ def igra():
                 print('Вы ничего не угадали')
             else:
                 print(f'Вы проиграли, но угадали {len(common_digits)} число(а)')
-        return f'Загаданные мной числа - {common_digits}'
+        return f'Загаданные мной числа - {common_digits}' #просто так вывожу список "загаданных" компом чисел, чтобы не возвращалось None
+
     return proverka()
 
 print(igra())
