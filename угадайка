@@ -2,35 +2,35 @@ from random import randint
 import sys
 
 
-def igra():
+def game():
     while True:
         min_count = int(input('Введите минимальное число, которого будут загадываться числа (не меньше 5): '))
         max_count = int(input('Введите максимальное число, до которого будут загадываться числа (не больше 30): '))
-        if min_count >= 5 < max_count <= 30:
+        if 5 <= (max_count + 1) - min_count <= 30:
             break
         else:
-            print('Введите значения заново')
+            print('Неправильно задан диапазон')
     
     def making_digits():
-        spisok = set()
-        while len(spisok) < 3:
+        computers_digits = set()
+        while len(computers_digits) < 3:
             a = randint (min_count, max_count)
-            spisok.add(a)
-        print (f'Я загадал кое-какие числа {spisok}. Угадаешь какие?') #вывожу здесь список для проверки того, что "загадывает" комп - можно выбросить строку
-        return spisok
+            computers_digits.add(a)
+        print (f'Я загадал кое-какие числа {computers_digits}. Угадаешь какие?') #вывожу здесь список для проверки того, что "загадывает" комп - можно выбросить строку
+        return computers_digits
     
     def users_digits():
-        spisok = set()
+        users_digits_list = set()
         for i in range(3):
-            a = input('Введите число: ')
-            if a == 'exit':
+            i = input('Введите число: ')
+            if i == 'exit':
                 sys.exit()
             else:
-                spisok.add(int(a))
-        print (f'Вы загадали эти числа: {spisok}') #также вывожу список того, что загадывает юзер, чтобы убедиться, что всё работает как нужно - можно выбросить строку
-        return spisok
+                users_digits_list.add(int(i))
+        print (f'Вы загадали эти числа: {users_digits_list}') #также вывожу список того, что загадывает юзер, чтобы убедиться, что всё работает как нужно - можно выбросить строку
+        return users_digits_list
     
-    def proverka():
+    def check():
         machines_digits = making_digits()
         while True:
             common_digits = set(users_digits()).intersection(set(machines_digits))
@@ -43,6 +43,6 @@ def igra():
                 print(f'Вы проиграли, но угадали {len(common_digits)} число(а)')
         return f'Загаданные мной числа - {common_digits}' #просто так вывожу список "загаданных" компом чисел, чтобы не возвращалось None
 
-    return proverka()
+    return check()
 
-print(igra())
+print(game())
