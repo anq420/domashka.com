@@ -20,14 +20,18 @@ def game():
         return computers_digits
     
     def users_digits():
-        users_digits_list = set()
-        for i in range(3):
-            i = input('Введите число: ')
-            if i == 'exit':
-                sys.exit()
+        while True:
+            users_digits_list = set()
+            for i in range(3):
+                i = input('Введите число: ')
+                if i == 'exit':
+                    sys.exit()
+                else:
+                    users_digits_list.add(int(i))
+            if len(users_digits_list) < 3:
+                print('Значения не могут повторяться. Попробуйте ввести заново разные значения!')
             else:
-                users_digits_list.add(int(i))
-        print (f'Вы загадали эти числа: {users_digits_list}') #также вывожу список того, что загадывает юзер, чтобы убедиться, что всё работает как нужно - можно выбросить строку
+                break
         return users_digits_list
     
     def check():
@@ -38,7 +42,7 @@ def game():
                 print('Вы победили')
                 break
             elif len(common_digits) == 0:
-                print('Вы ничего не угадали')
+                print(f'Вы ничего не угадали')
             else:
                 print(f'Вы проиграли, но угадали {len(common_digits)} число(а)')
         return f'Загаданные мной числа - {common_digits}' #просто так вывожу список "загаданных" компом чисел, чтобы не возвращалось None
