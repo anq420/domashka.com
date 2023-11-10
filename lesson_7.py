@@ -16,9 +16,8 @@ def mathematic():
         print(f'Сколько будет {d2}-{d1}?')
         user_d = int(input('Введите ваш ответ:\n'))
         if int(d2-d1) == user_d:
-            print('Правильно')
-            break
+            return 'Правильно'
         else:
-            print('Неправильно')
+            return 'Неправильно'
 
 print(mathematic())
