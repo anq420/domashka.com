@@ -18,6 +18,6 @@ def mathematic():
         if int(d2-d1) == user_d:
             return 'Правильно'
         else:
-            return 'Неправильно'
+            print('Неправильно. Попробуйте ещё раз!\n')
 
 print(mathematic())
