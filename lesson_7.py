@@ -4,9 +4,9 @@ from random import randint
 def time_check(func):
     def calculating_time():
         start_time = time()
-        func()
+        result = func()
         end_time = time()
-        return(f'Вы справились за {int(end_time-start_time)} секунд')
+        return result, f'Вы справились за {int(end_time-start_time)} секунд'
     return calculating_time     
 
 @time_check
