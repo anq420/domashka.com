@@ -13,11 +13,20 @@ def time_check(func):
 def mathematic():
     d1, d2 = randint(0, 1000), randint(0, 1000)
     while True:
-        print(f'Сколько будет {d2}-{d1}?')
-        user_d = int(input('Введите ваш ответ:\n'))
-        if int(d2-d1) == user_d:
-            return 'Правильно'
-        else:
-            print('Неправильно. Попробуйте ещё раз!\n')
+        if d1 >= d2:
+            print(f'Сколько будет {d1}-{d2}?')
+            user_d = int(input('Введите ваш ответ:\n'))
+            if int(d2-d1) == user_d:
+                return 'Правильно'
+            else:
+                print('Неправильно. Попробуйте ещё раз!\n')
+        if d1 <= d2:
+            print(f'Сколько будет {d1}+{d2}?')
+            user_d = int(input('Введите ваш ответ:\n'))
+            if int(d1+d2) == user_d:
+                return 'Правильно'
+            else:
+                print('Неправильно. Попробуйте ещё раз!\n')
+        
 
 print(mathematic())
