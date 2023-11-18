@@ -96,4 +96,3 @@ def stepen():
     dig_2 = float(input('Введите в какую степень будем возводить предыдущее число:\n'))
     result = dig_1 ** dig_2
     return result
-print(summa())
