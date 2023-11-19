@@ -1,46 +1,35 @@
 from customexceptions import WrongValue
 
-def summa():
+def get_user_digit():
     dig_1 = input('Введите первое число: ')
     if not dig_1.isdigit():
         raise WrongValue
     dig_2 = input('Введите второе число: ')
     if not dig_2.isdigit():
         raise WrongValue
+    return dig_1, dig_2
+
+def summa():
+    user_digit = get_user_digit()
+    dig_1, dig_2 = user_digit[0], user_digit[1]
     return int(dig_1) + int(dig_2)
 
 def subtraction():
-    dig_1 = input('Введите первое число: ')
-    if not dig_1.isdigit():
-        raise WrongValue
-    dig_2 = input('Введите второе число: ')
-    if not dig_2.isdigit():
-        raise WrongValue
+    user_digit = get_user_digit()
+    dig_1, dig_2 = user_digit[0], user_digit[1]
     return int(dig_1) - int(dig_2)
 
 def multiply():
-    dig_1 = input('Введите первое число: ')
-    if not dig_1.isdigit():
-        raise WrongValue
-    dig_2 = input('Введите второе число: ')
-    if not dig_2.isdigit():
-        raise WrongValue
+    user_digit = get_user_digit()
+    dig_1, dig_2 = user_digit[0], user_digit[1]
     return int(dig_1) * int(dig_2)
 
 def devision():
-    dig_1 = input('Введите первое число: ')
-    if not dig_1.isdigit():
-        raise WrongValue
-    dig_2 = input('Введите второе число: ')
-    if not dig_2.isdigit():
-        raise WrongValue
+    user_digit = get_user_digit()
+    dig_1, dig_2 = user_digit[0], user_digit[1]
     return int(dig_1) / int(dig_2)
 
 def exponentiation():
-    dig_1 = input('Введите первое число: ')
-    if not dig_1.isdigit():
-        raise WrongValue
-    dig_2 = input('Введите второе число: ')
-    if not dig_2.isdigit():
-        raise WrongValue
+    user_digit = get_user_digit()
+    dig_1, dig_2 = user_digit[0], user_digit[1]
     return int(dig_1) ** int(dig_2)
