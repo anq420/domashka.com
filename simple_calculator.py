@@ -1,45 +1,28 @@
 from simple_operations import summa, subtraction, devision, multiply, exponentiation
-from customexceptions import WrongOption, WrongValue
+from customexceptions import WrongOption
 
-def calculator():
-    users_choice = input('Доступные операции:\n+\n-\n*\n/\n**\n')
-    error_message = 'Вводить необходимо только цифры! Попробуйте заново.'
-    if users_choice == '+':
-        while True:
-            try:
-                return summa()
-            except WrongValue:
-                print(f'{error_message}')
-    if users_choice == '-':
-            while True:
-                try:
-                    return subtraction()
-                except WrongValue:
-                    print(f'{error_message}')
-    if users_choice == '*':
-        while True:
-            try:
-                return multiply()
-            except WrongValue:
-                print(f'{error_message}')
-    if users_choice == '/':
-        while True:
-            try:
-                return devision()
-            except WrongValue:
-                print(f'{error_message}')
-    if users_choice == '**':
-        while True:
-            try:
-                return exponentiation()
-            except WrongValue:
-                print(f'{error_message}')
-    if users_choice not in ['+', '-', '*', '/', '**']:
-        raise WrongOption('Необходимо ввести название функции.')
+def users_choice():
+    while True:
+        try:
+            user_choose = input('Доступные операции:\n+\n-\n*\n/\n**\n')
+            if user_choose not in ['+', '-', '*', '/', '**']:
+                raise WrongOption
+            else:
+                return user_choose
+        except WrongOption:
+            print('Выберите нужную операцию:\n') 
 
-while True:
-    try:
-        print(calculator())
-        break
-    except WrongOption:
-        print('Необходимо правильно ввести название функции.')
+
+def calculator(operation):
+    if operation == '+':
+        return summa()
+    if operation == '-':
+        return subtraction()
+    if operation == '*':
+        return multiply()
+    if operation == '/':
+        return devision()
+    if operation == '**':
+        return exponentiation()
+
+print(calculator(users_choice()))
