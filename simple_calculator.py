@@ -3,36 +3,37 @@ from customexceptions import WrongOption, WrongValue
 
 def calculator():
     users_choice = input('Доступные операции:\n+\n-\n*\n/\n**\n')
+    error_message = 'Вводить необходимо только цифры! Попробуйте заново.'
     if users_choice == '+':
         while True:
             try:
                 return summa()
             except WrongValue:
-                print('Вводить необходимо только цифры! Попробуйте заново.')
+                print(f'{error_message}')
     if users_choice == '-':
             while True:
                 try:
                     return subtraction()
                 except WrongValue:
-                    print('Вводить необходимо только цифры! Попробуйте заново.')
+                    print(f'{error_message}')
     if users_choice == '*':
         while True:
             try:
                 return multiply()
             except WrongValue:
-                print('Вводить необходимо только цифры! Попробуйте заново.')
+                print(f'{error_message}')
     if users_choice == '/':
         while True:
             try:
                 return devision()
             except WrongValue:
-                print('Вводить необходимо только цифры! Попробуйте заново.')
+                print(f'{error_message}')
     if users_choice == '**':
         while True:
             try:
                 return exponentiation()
             except WrongValue:
-                print('Вводить необходимо только цифры! Попробуйте заново.')
+                print(f'{error_message}')
     if users_choice not in ['+', '-', '*', '/', '**']:
         raise WrongOption('Необходимо ввести название функции.')
 
