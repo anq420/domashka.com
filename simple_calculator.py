@@ -2,43 +2,38 @@ from simple_operations import summa, subtraction, devision, multiply, exponentia
 from customexceptions import WrongOption, WrongValue
 
 def calculator():
-    users_choice = input('Доступные операции:\n-Сложение\n-Вычитание\n-Умножение\n-Деление\n-Возведение в степень. Напишите название операции, чтобы её выполнить.\n')
-    if users_choice in ['Сложение', 'сложение']:
+    users_choice = input('Доступные операции:\n+\n-\n*\n/\n**\n')
+    if users_choice == '+':
         while True:
             try:
-                print(summa())
-                break
+                return summa()
             except WrongValue:
                 print('Вводить необходимо только цифры! Попробуйте заново.')
-    if users_choice in ['Вычитание', 'вычитание']:
+    if users_choice == '-':
             while True:
                 try:
-                    print(subtraction())
-                    break
+                    return subtraction()
                 except WrongValue:
                     print('Вводить необходимо только цифры! Попробуйте заново.')
-    if users_choice in ['Умножение', 'умножение']:
+    if users_choice == '*':
         while True:
             try:
-                print(multiply())
-                break
+                return multiply()
             except WrongValue:
                 print('Вводить необходимо только цифры! Попробуйте заново.')
-    if users_choice in ['Деление', 'деление']:
+    if users_choice == '/':
         while True:
             try:
-                print(devision())
-                break
+                return devision()
             except WrongValue:
                 print('Вводить необходимо только цифры! Попробуйте заново.')
-    if users_choice in ['Возведение в степень', 'возведение в сепень']:
+    if users_choice == '**':
         while True:
             try:
-                print(exponentiation())
-                break
+                return exponentiation()
             except WrongValue:
                 print('Вводить необходимо только цифры! Попробуйте заново.')
-    else:
+    if users_choice not in ['+', '-', '*', '/', '**']:
         raise WrongOption('Необходимо ввести название функции.')
 
 while True:
