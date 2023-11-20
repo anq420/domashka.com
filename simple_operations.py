@@ -33,7 +33,7 @@ def devision():
     user_digit = get_user_digit()
     dig_1, dig_2 = user_digit[0], user_digit[1]
     try:
-        return dig_1 / dig_2
+        return int(dig_1) / int(dig_2)
     except ZeroDivisionError:
         return 'На 0 делить нельзя! Ответ - 0.'
         
