@@ -1,83 +1,70 @@
-def summa():
-    digit_list = []
+from customexceptions import WrongValue
+
+
+def user_digit_amount():
     while True:
         try:
-            total_digs = int(input('Сколько всего чисел будем складывать?\n'))
+            total_digs = int(input('Сколько всего чисел в операции?\n'))
             if total_digs <= 1:
                 print('Для работы функции нужно хотя бы два числа!')
-            break
+            else:
+                break
         except ValueError:
-            print('Ошибка! Ответ необходимо ввести числом! Например, 5!\nПопробуйте заново!')     
+            print('Ошибка! Ответ необходимо ввести числом! Например, 5!\nПопробуйте заново!')
+    return total_digs
+
+def get_numbers(total_digs):
+    digit_list = []   
     while len(digit_list) != total_digs:
-        i = input('Введите число, которое будем складывать с другими числами:\n')
+        i = input('Введите число:\n')
+        is_digit = all((i.isdigit() or i == '.' for i in i))
         try:
             digit_list.append(float(i))
+            if not is_digit:
+                raise WrongValue
+        except WrongValue:
+            print('Ошибка! Попробуйте заново!')
+    return digit_list
+
+def get_numbers_2(total_digs):
+    digit_list = []
+    while len(digit_list) != total_digs-1:
+        i = input('Введите число:\n')
+        is_digit = all((i.isdigit() or i == '.' for i in i))
+        try:
+            digit_list.append(float(i))
+            if not is_digit:
+                raise WrongValue
         except ValueError:
             print('Ошибка! Попробуйте заново!')
-    final_count = 0    
+    return digit_list
+
+def summa():
+    digit_list = get_numbers(user_digit_amount())
+    final_count = 0  
     for i in digit_list:
         final_count = final_count + i
     return final_count
 
 def subtraction():
-    digit_list = []
-    while True:
-        try:
-            total_digs = int(input('Сколько всего чисел будем использовать в вычитании?\n'))
-            if total_digs <= 1:
-                print('Для работы функции нужно хотя бы два числа!')
-            break
-        except ValueError:
-            print('Ошибка! Ответ необходимо ввести числом! Например, 5!\nПопробуйте заново!')
-    dig_1 = float(input('Введите число, из которого будем вычитать другие числа:\n'))
-    while len(digit_list) != total_digs-1:
-        i = input('Введите число, которое будем отнимать от предыдущего:\n')
-        try:
-            digit_list.append(float(i))
-        except ValueError:
-            print('Ошибка! Попробуйте заново!')
+    digs_amount = user_digit_amount()
+    dig_1 = float(input('Введите число, из которого будем вычитать:\n'))
+    digit_list = get_numbers_2(digs_amount)
     for i in digit_list:
         dig_1 = dig_1 - i
     return dig_1
 
 def multiply():
-    digit_list = []
-    while True:
-        try:
-            total_digs = int(input('Сколько всего чисел будем умножать друг на друга?\n'))
-            if total_digs <= 1:
-                print('Для работы функции нужно хотя бы два числа!')
-            break
-        except ValueError:
-            print('Ошибка! Ответ необходимо ввести числом! Например, 5!\nПопробуйте заново!')
-    while len(digit_list) != total_digs:
-        i = input('Введите число, которое будем умножать на другие числа:\n')
-        try:
-            digit_list.append(float(i))
-        except ValueError:
-            print('Ошибка! Попробуйте заново!')
+    digit_list = get_numbers(user_digit_amount())
     final_count = 1    
     for i in digit_list:
         final_count = final_count * i
     return final_count
 
 def devision():
-    digit_list = []
-    while True:
-        try:
-            total_digs = int(input('Сколько всего чисел будем использовать в делении?\n'))
-            if total_digs <= 1:
-                print('Для работы функции нужно хотя бы два числа!')
-            break
-        except ValueError:
-            print('Ошибка! Ответ необходимо ввести числом! Например, 5!\nПопробуйте заново!')
+    digs_amount = user_digit_amount()
     dig_1 = float(input('Введите число, которое будем делить на другие числа:\n'))
-    while len(digit_list) != total_digs-1:
-        i = input('Введите число, на которое будем делить предыдущее:\n')
-        try:
-            digit_list.append(float(i))
-        except ValueError:
-            print('Ошибка! Попробуйте заново!')
+    digit_list = get_numbers_2(digs_amount)
     try:
         for i in digit_list:
             dig_1 = dig_1 / i
@@ -86,7 +73,16 @@ def devision():
     return dig_1
 
 def exponentiation():
-    dig_1 = float(input('Введите число, которое будем возводить в степень:\n'))
-    dig_2 = float(input('Введите в какую степень будем возводить предыдущее число:\n'))
-    result = dig_1 ** dig_2
-    return result
+    while True:
+        try:
+            dig_1 = input('Введите число:\n')
+            is_digit = all((i.isdigit() or i == '.' for i in dig_1))
+            if not is_digit:
+                raise WrongValue
+            dig_2 = input('Введите степень:\n')
+            is_digit = all((i.isdigit() or i == '.' for i in dig_2))
+            if not is_digit:
+                raise WrongValue 
+            return float(dig_1) ** float(dig_2)
+        except WrongValue:
+            print('Нужно вводить только числа с точкой')
