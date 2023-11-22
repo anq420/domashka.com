@@ -1,3 +1,5 @@
+import json
+
 with open('all_users.json', 'r') as j_file:
     all_users = json.load(j_file)
 
@@ -59,10 +61,10 @@ def registration():
 
 def login_register():
     while True:
-        user_choice = input('What would you like to do: register or login?\n')
-        if user_choice in ['Register', 'register']:
+        user_choice = input('What would you like to do: register or login?\n').lower
+        if user_choice in 'register':
             return registration()
-        if user_choice in ['Login', 'login']:
+        if user_choice in 'login':
             return login()
         else:
             print('You need to choose: to login or to register!')
