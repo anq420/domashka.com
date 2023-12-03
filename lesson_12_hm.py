@@ -14,8 +14,8 @@ class Transport(Moving):
 
 
 class Car(Transport):
-    def __init__(self, status=None):
-        self.status = status
+    def __init__(self):
+        self.status = 'not started'
 
     def move(self):
         if self.status == 'not started':
@@ -24,11 +24,8 @@ class Car(Transport):
             print('I am moving')
 
     def launch(self):
-        if self.status is None:
+        if self.status == 'not started':
             self.status = 'started'
-            print(self.status)
-        elif self.status is not None:
-            self.status = 'not started'
             print(self.status)
 
 
@@ -49,13 +46,4 @@ class Duck(Animal):
 
 
 car = Car()
-car.launch()
 car.move()
-
-tiger = Tiger()
-tiger.move()
-tiger.voice()
-
-duck = Duck()
-duck.move()
-duck.voice()
