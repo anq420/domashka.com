@@ -27,12 +27,7 @@ class DataStorage:
 
 class DataStorageWrite(DataStorage):
     def connect(self):
-        try:
-            with open(self._file_path, 'r') as j_file:
-                self.content = json.load(j_file)
-                self.status = 'connected'
-        except FileNotFoundError:
-            return self._create_storage()
+        super().connect()
 
     def append(self, string_):
         if self.status == 'connected':
