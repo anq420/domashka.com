@@ -2,10 +2,10 @@ import json
 
 
 class DataStorage:
-    def __init__(self):
+    def __init__(self, file_path):
         self.status = 'disconnect'
         self.content = None
-        self.__file_path = 'file.json'
+        self.__file_path = file_path
         self.file = None
 
     @property
@@ -24,7 +24,11 @@ class DataStorage:
             self.status = 'connected'
             return self.file
         except FileNotFoundError:
-            return self._create_storage()
+            self._create_storage()
+            self.file = open(self.file_path, 'r')
+            self.content = json.load(self.file)
+            self.status = 'connected'
+            return self.file
 
     def disconnect(self):
         if self.status == 'connected':
@@ -49,7 +53,7 @@ class DataStorageWrite(DataStorage):
             print('You need to set a "connect" status first')
 
 
-j_file_1 = DataStorageWrite()
+j_file_1 = DataStorageWrite('file.json')
 j_file_1.connect()
 j_file_1.append('Hello, world')
 j_file_1.disconnect()
