@@ -49,6 +49,7 @@ class TxtHandler(BaseHandler):
     def read(self):
         self.file = open(self.file_path, 'r')
         self.content = self.file.read()
+        print(self.content)
         return self.content
 
     def append(self, string_):
