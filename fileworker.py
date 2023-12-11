@@ -4,30 +4,27 @@ from handlers import TxtHandler, JsonHandler
 class FileWorker:
     def __init__(self, file_path):
         self.file_path = file_path
+        self.file_types = {'json': JsonHandler, 'txt': TxtHandler}
 
     def file_extension(self):
-        if self.file_path.endswith('.json'):
-            return '.json'
-        elif self.file_path.endswith('.txt'):
-            return '.txt'
+        if self.file_path.endswith('json'):
+            return self.file_types.get('json')
+        elif self.file_path.endswith('txt'):
+            return self.file_types.get('txt')
+        else:
+            return 'error'
 
     def read(self):
-        if self.file_extension() == '.json':
-            return JsonHandler(self.file_path).read()
-        if self.file_extension() == '.txt':
-            return TxtHandler(self.file_path).read()
+        reader = self.file_extension()
+        return reader(self.file_path).read()
 
     def append(self, string_):
-        if self.file_extension() == '.json':
-            return JsonHandler(self.file_path).append(string_)
-        if self.file_extension() == '.txt':
-            return TxtHandler(self.file_path).append(string_)
+        appender = self.file_extension()
+        return appender(self.file_path).append(string_)
 
     def close(self):
-        if self.file_extension() == '.json':
-            return JsonHandler(self.file_path).close()
-        if self.file_extension() == '.txt':
-            return TxtHandler(self.file_path).close()
+        closer = self.file_extension()
+        return closer(self.file_path).close()
 
 
 def app():
