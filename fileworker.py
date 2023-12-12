@@ -1,34 +1,33 @@
 from handlers import TxtHandler, JsonHandler
+from exception import ExtensionError
 
 
 class FileWorker:
     def __init__(self, file_path):
         self.file_path = file_path
-        self.file_types = {'json': JsonHandler, 'txt': TxtHandler}
+        self.extension = self.file_extension()
 
     def file_extension(self):
-        if self.file_path.endswith('json'):
-            return self.file_types.get('json')
-        elif self.file_path.endswith('txt'):
-            return self.file_types.get('txt')
+        file_types = {'json': JsonHandler, 'txt': TxtHandler}
+        extension = self.file_path.split('.')[-1]
+        if extension in file_types:
+            get_handler = file_types.get(extension)
+            return get_handler
         else:
-            return 'error'
+            raise ExtensionError('Unsupported file extension')
 
     def read(self):
-        reader = self.file_extension()
-        return reader(self.file_path).read()
+        return self.extension(self.file_path).read()
 
     def append(self, string_):
-        appender = self.file_extension()
-        return appender(self.file_path).append(string_)
+        return self.extension(self.file_path).append(string_)
 
     def close(self):
-        closer = self.file_extension()
-        return closer(self.file_path).close()
+        return self.extension(self.file_path).close()
 
 
 def app():
-    fw = FileWorker('test_txt_file.txt')
+    fw = FileWorker('file.json')
     content = fw.read()
     fw.append('DOTA2')
     fw.append('DOTA2')
