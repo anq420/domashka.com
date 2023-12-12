@@ -12,18 +12,18 @@ class FileWorker:
         extension = self.file_path.split('.')[-1]
         if extension in file_types:
             get_handler = file_types.get(extension)
-            return get_handler
+            return get_handler(self.file_path)
         else:
             raise ExtensionError('Unsupported file extension')
 
     def read(self):
-        return self.extension(self.file_path).read()
+        return self.extension.read()
 
-    def append(self, string_):
-        return self.extension(self.file_path).append(string_)
+    def append(self, content):
+        return self.extension.append(content)
 
     def close(self):
-        return self.extension(self.file_path).close()
+        return self.extension.close()
 
 
 def app():
@@ -35,4 +35,4 @@ def app():
     return content
 
 
-print(app())
+app()

@@ -26,14 +26,15 @@ class JsonHandler(BaseHandler):
         self.content = json.load(self.file)
         if type(self.content) is list:
             print(self.content)
+            self.file.close()
             return self.content
         else:
             return '.json-file must consist of list - []'
 
-    def append(self, string_):
+    def append(self, content):
         self.file = open(self.file_path, 'r')
         self.content = json.load(self.file)
-        self.content.append(string_)
+        self.content.append(content)
         with open(self.file_path, 'w') as w_file:
             return json.dump(self.content, w_file)
 
@@ -50,11 +51,12 @@ class TxtHandler(BaseHandler):
         self.file = open(self.file_path, 'r')
         self.content = self.file.read()
         print(self.content)
+        self.file.close()
         return self.content
 
-    def append(self, string_):
+    def append(self, content):
         self.file = open(self.file_path, 'a')
-        return self.file.write(f'{string_}\n')
+        return self.file.write(f'{content}\n')
 
     def close(self):
         self.file = open(self.file_path, 'r')
