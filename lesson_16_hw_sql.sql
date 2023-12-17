@@ -14,7 +14,7 @@ create table food(
 create table food_intake(
     intake_id serial primary key, -- unique intake id
     user_id integer references users(user_id) on delete cascade, -- this table reference on the column user_id ->
--- -> from table users; if a used is deleted from USERS, than all info which is relevant for a certain user gets deleted
+-- -> from table users; if a user is deleted from USERS, than all info which is relevant for a certain user gets deleted
     food_id integer references food(food_id) on delete cascade,-- this table reference on the column food_id ->
 -- -> from table food; if a position is deleted from FOOD, than all info which is relevant for a certain pos gets deleted
     quantity integer not null, -- quantity must be integer (amount of portions), it cannot be NULL, but can be 0 -->
