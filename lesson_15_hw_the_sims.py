@@ -4,12 +4,13 @@ from random import randint
 class Person:
     def __init__(self, name):
         self.name = name
-        self.car = None
-        self.house = None
+        self.properties = Properties()
         self.__balance = 0
 
     def __repr__(self):
-        return f'{self.name} has on this balance {self.__balance} EUR, car - {self.car}, house - {self.house}'
+        return f'''
+{self.name} has on his balance {self.__balance} EUR
+Car - {self.properties.car}, house - {self.properties.house}'''
 
     @property
     def balance(self):
@@ -23,27 +24,33 @@ class Person:
         car = Car()
         if self.__balance >= car.price:
             self.__balance -= car.price
-            self.car = True
+            self.properties.car = True
 
     def car_sell(self):
         car = Car()
-        if self.car is True:
+        if self.properties.car is True:
             self.__balance += car.price
-            self.car = None
+            self.properties.car = None
 
     def house_buy(self):
         house = House()
-        if self.car is True and self.__balance >= house.price:
+        if self.properties.car is True and self.__balance >= house.price:
             self.__balance -= house.price
-            self.house = True
+            self.properties.house = True
         else:
             return 'Not all requirements are met'
 
     def house_sell(self):
         house = House()
-        if self.house is True:
+        if self.properties.house is True:
             self.__balance += house.price
-            self.house = None
+            self.properties.house = None
+
+
+class Properties:
+    def __init__(self):
+        self.car = None
+        self.house = None
 
 
 class Car:
