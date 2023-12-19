@@ -1,73 +1,76 @@
 from random import randint
 
 
-class RealLife:
-    def __init__(self):
-        self.balance = 0
+class Person:
+    def __init__(self, name):
+        self.name = name
         self.car = None
         self.house = None
+        self.__balance = 0
+
+    def __repr__(self):
+        return f'{self.name} has on this balance {self.__balance} EUR, car - {self.car}, house - {self.house}'
+
+    @property
+    def balance(self):
+        return self.__balance
 
     def work(self):
-        salary = randint(5, 10)
-        self.balance = self.balance + salary
-        return f'Your balance now is {self.balance} EUR'
+        self.__balance += randint(5, 10)
+        return self.__balance
 
     def car_buy(self):
-        while True:
-            user_choice = input('A car costs 40 EUR. Would you like to buy it: yes or not?\n').lower()
-            if user_choice == 'yes' and self.balance >= 40:
-                self.balance = self.balance - 40
-                return f'A car was bought. Now your balance is {self.balance} EUR'
-            elif user_choice == 'yes' and self.balance < 40:
-                return 'Not enough money'
-            elif user_choice == 'not':
-                return 'Ok, maybe next time'
+        car = Car()
+        if self.__balance >= car.price:
+            self.__balance -= car.price
+            self.car = True
+
+    def car_sell(self):
+        car = Car()
+        if self.car is True:
+            self.__balance += car.price
+            self.car = None
 
     def house_buy(self):
-        while True:
-            user_choice = input('A house costs 100 EUR. Would you like to buy it: yes or not?\n').lower()
-            if user_choice == 'yes' and self.balance >= 100 and self.car is True:
-                self.balance = self.balance - 100
-                self.house = True
-                return f'A house was bought. Now your balance is {self.balance} EUR'
-            elif user_choice == 'yes' and self.balance < 100:
-                return 'Not enough money'
-            elif user_choice == 'yes' and self.balance >= 100 and self.car is not True:
-                return 'You must buy a car first'
-            elif user_choice == 'not':
-                return 'OK, maybe next time'
+        house = House()
+        if self.car is True and self.__balance >= house.price:
+            self.__balance -= house.price
+            self.house = True
+        else:
+            return 'Not all requirements are met'
 
-    def sell_car(self):
-        if self.car is True:
-            user_choice = input('Do you really want to sell a car for 40 EUR: yes or no\n').lower()
-            if user_choice == 'yes':
-                self.balance = self.balance + 40
-                self.car = None
-                return f'Your car was sold. Now your balance is {self.balance} EUR'
-            if user_choice == 'no':
-                return 'OK, maybe next time'
-        if self.car is None:
-            return 'You have nothing to sell'
-
-    def sell_house(self):
+    def house_sell(self):
+        house = House()
         if self.house is True:
-            user_choice = input('Do you really want to sell a house for 100 EUR: yes or no\n').lower()
-            if user_choice == 'yes':
-                self.balance = self.balance + 100
-                self.house = None
-                return f'Your house was sold. Now your balance is {self.balance} EUR'
-            if user_choice == 'no':
-                return 'OK, maybe next time'
-        if self.house is None:
-            return 'You have nothing to sell'
+            self.__balance += house.price
+            self.house = None
 
 
-person = RealLife()
-while person.balance < 40:
-    print(person.work())
-print(person.car_buy())
-while person.balance < 100:
-    print(person.work())
-print(person.house_buy())
-print(person.sell_house())
-print(person.sell_car())
+class Car:
+    def __init__(self):
+        self.price = 40
+
+
+class House:
+    def __init__(self):
+        self.price = 100
+
+
+def game():
+    char = Person('Ilya')
+    print(char)
+    while char.balance < 140:
+        char.work()
+    print(char)
+    char.car_buy()
+    print(char)
+    char.house_buy()
+    print(char)
+    char.car_sell()
+    print(char)
+    char.house_sell()
+    print(char)
+    return ''
+
+
+print(game())
