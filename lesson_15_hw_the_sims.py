@@ -20,62 +20,66 @@ Car - {self.properties.car}, house - {self.properties.house}'''
         self.__balance += randint(5, 10)
         return self.__balance
 
-    def car_buy(self):
-        car = Car()
+    def car_buy(self, car):
         if self.__balance >= car.price:
             self.__balance -= car.price
-            self.properties.car = True
+            self.properties.car = 'available'
 
-    def car_sell(self):
-        car = Car()
-        if self.properties.car is True:
+    def car_sell(self, car):
+        if self.properties.car == 'available':
             self.__balance += car.price
-            self.properties.car = None
+            self.properties.car = 'unavailable'
 
-    def house_buy(self):
-        house = House()
-        if self.properties.car is True and self.__balance >= house.price:
+    def house_buy(self, house):
+        if self.properties.car == 'available' and self.__balance >= house.price:
             self.__balance -= house.price
-            self.properties.house = True
+            self.properties.house = 'available'
         else:
             return 'Not all requirements are met'
 
-    def house_sell(self):
-        house = House()
-        if self.properties.house is True:
+    def house_sell(self, house):
+        if self.properties.house == 'available':
             self.__balance += house.price
-            self.properties.house = None
+            self.properties.house = 'unavailable'
 
 
 class Properties:
     def __init__(self):
-        self.car = None
-        self.house = None
+        self.car = 'unavailable'
+        self.house = 'unavailable'
 
 
 class Car:
     def __init__(self):
         self.price = 40
 
+    def __str__(self):
+        return 'available'
+
 
 class House:
     def __init__(self):
         self.price = 100
 
+    def __str__(self):
+        return 'available'
+
 
 def game():
     char = Person('Ilya')
+    car = Car()
+    house = House()
     print(char)
     while char.balance < 140:
         char.work()
     print(char)
-    char.car_buy()
+    char.car_buy(car)
     print(char)
-    char.house_buy()
+    char.house_buy(house)
     print(char)
-    char.car_sell()
+    char.car_sell(car)
     print(char)
-    char.house_sell()
+    char.house_sell(house)
     print(char)
     return ''
 
