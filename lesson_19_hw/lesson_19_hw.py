@@ -1,26 +1,12 @@
 from flask import (Flask, render_template, request, flash)
-from sqlalchemy import (create_engine, MetaData, Table, Integer, String, Column, CheckConstraint)
+from making_db import engine, users
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
+from password_actions import hash_password, check_password
 
 
 app = Flask(__name__)
 app.secret_key = 'QwErTyUiOp[123456789010]'
-
-metadata = MetaData()
-engine = create_engine('postgresql+psycopg2://anq420:030499@localhost/lesson_19_hw_contract_first')
-ses = Session(bind=engine)
-
-
-users = Table(
-    'users', metadata,
-
-    Column('id', Integer(), primary_key=True),
-    Column('email', String(255), nullable=False, unique=True),
-    Column('password', String, nullable=False),
-    Column('nickname', String(255), nullable=False, unique=True),
-    CheckConstraint("email LIKE '%@%' AND LOWER(email) = email", name='email_format_check')
-)
-metadata.create_all(engine)
 
 
 @app.route('/')
@@ -40,18 +26,22 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        user_info = email, password
-        all_users = [(i[1], i[2]) for i in ses.query(users).all()]
+        user = ses.query(users).filter_by(email=email).first()
 
-        for user in all_users:
-            if user == user_info:
+        if user:
+            user_pass = user.password
+            checked = check_password(password, user_pass)
+            if checked:
                 return f'Welcome back, {email}'
 
-            if user[0] != email:
-                flash('It seems you have no account here. You need to make an account first.')
+        if user:
+            user_pass = user.password
+            checked = check_password(password, user_pass)
+            if not checked:
+                flash('It seems you have entered your password incorrectly')
 
-            if user[0] == email and user[1] != password:
-                flash('It seems you entered your password incorrectly')
+        if not user:
+            flash('Oops! We could not find such email. Maybe you have no account here?')
 
     return f'''{render_template('login.html')}<p>{main}</p>'''
 
@@ -62,32 +52,34 @@ def create_account():
     if request.method == 'POST':
         ses = Session(bind=engine)
 
-        check_email = [i[1] for i in ses.query(users).all()]
-        check_nickname = [i[3] for i in ses.query(users).all()]
-
         email = request.form['email']
         password = request.form['password']
         password_2 = request.form['password_2']
         nickname = request.form['nickname']
 
-        if password == password_2 and email not in check_email and nickname not in check_nickname:
+        check_email = ses.query(users).filter_by(email=email).first()
+        check_nickname = ses.query(users).filter_by(nickname=nickname).first()
+
+        if password == password_2 and check_email is None and check_nickname is None:
             try:
-                new_account = users.insert().values(email=email, password=password, nickname=nickname)
+                password_hashed = hash_password(password)
+                new_account = users.insert().values(email=email, password=password_hashed, nickname=nickname)
                 ses.execute(new_account)
                 ses.commit()
                 ses.close()
                 return f'''<h1>Registered successfully</h1><p>{main}</p>'''
-            except Exception:
+            except IntegrityError:
+                ses.rollback()
                 flash('You need to use an email to register an account')
 
         if password != password_2:
             flash('It seems you have entered incorrect password')
 
-        if email in check_email:
-            flash(f'This email is already used. You can login into it.')
+        if check_nickname:
+            flash('Nickname is already in use')
 
-        if nickname in check_nickname:
-            flash('This nickname is already used')
+        if check_email:
+            flash('Email is already in use')
 
     return f'''{render_template('index_1.html')}<p>{main}</p>'''
 
