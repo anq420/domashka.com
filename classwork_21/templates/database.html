@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All users</title>
+</head>
+<body>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <h2>All users</h2>
+    <form action="/update" method="post">
+        <input type="submit" value="Обновить">
+    </form><br>
+    <form action="/drop-all" method="post">
+        <input type="submit" value="Очистить таблицу">
+    </form><br>
+    <form action="/sync" method="post">
+        <input type="submit" value="Синхронизировать">
+    </form><br>
+
+        <h2>Актуальный список пользователей:</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+        </tr>
+        {% for user in all_users %}
+            <tr>
+                <td>{{user[0]}}</td>
+                <td>{{user[1]}}</td>
+                <td>{{user[2]}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
