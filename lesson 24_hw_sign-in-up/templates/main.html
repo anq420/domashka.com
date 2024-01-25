@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+<hr><h2 style>Все пользователи сайта: {{ count }}</h2><hr>
+
+<img src="{% static 'images/72gi.gif' %}" alt="Тут могло быть ваше пиво" style="max-width: 50px">
+
+<div class="container">{% for hidden_email in hidden_emails %}
+        <p>{{ hidden_email }}</p>
+    {% endfor %}</div>
+
+    <div class="button">
+<button onclick="window.location.href = '/sign-up';">Зарегистрироваться</button>
+<button onclick="window.location.href = '/sign-in';">Войти в аккаунт</button>
+    </div>
+
+</body>
+</html>
