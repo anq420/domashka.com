@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cat-news</title>
+</head>
+<body>
+
+    {% for news in data %}
+        <h2>{{ news.title }}</h2>
+        <p>{{ news.content }}</p>
+        <img src="{{ news.image }}" alt="img" style="max-width: 50px">
+    {% endfor %}
+    
+
+</body>
+</html>
