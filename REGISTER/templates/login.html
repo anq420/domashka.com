@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вход</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+
+</head>
+<body>
+
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Вход в аккаунт</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <h3><label for="email">Введите вашу почту:</label>
+            <input type="text" id="email" name="email"></h3>
+
+        <h3><label for="password">Введитеваш пароль:</label>
+        <input type="password" id="password" name="password"></h3>
+
+        <input type="submit" value="Войти">
+
+    </form><br>
+
+    <button onclick="window.location.href = '/';">На главную</button>
+</body>
+</html>
