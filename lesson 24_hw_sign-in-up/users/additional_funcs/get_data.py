@@ -26,4 +26,20 @@ def hide_email(users):
         part2_email = split_email[0][3:].replace(split_email[0][3:], "*" * len_str)
         hidden_email = part_email + part2_email + "@" + split_email[1]
         user_list.append(hidden_email)
+
     return user_list
+
+
+class EmailService:
+    @staticmethod
+    def hide(users):
+        user_list = []
+        for user in users:
+            split_email = user.split("@")
+            part_email = split_email[0][:3]
+            len_str = len(split_email[0][3:])
+            part2_email = split_email[0][3:].replace(split_email[0][3:], "*" * len_str)
+            hidden_email = part_email + part2_email + "@" + split_email[1]
+            user_list.append(hidden_email)
+
+        return user_list
