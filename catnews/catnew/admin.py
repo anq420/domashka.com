@@ -1,10 +1,10 @@
 from django.contrib import admin
-from catnew.models import New, Comment
+from catnew.models import News, Comment
 
 
-@admin.register(New)
+@admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('author', 'title', 'content', 'likes', 'dislikes', 'rating', 'date', 'views', 'comment')
+    list_display = ('author', 'title', 'content', 'likes', 'dislikes', 'rating', 'created_at', 'views')
     search_fields = ('title', 'content')
     ordering = ('rating', 'views')
 

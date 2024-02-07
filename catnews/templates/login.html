@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-in</title>
+</head>
+<body>
+
+        <form method="post" action="{% url 'signin' %}">
+            {% csrf_token %}
+            <label for="email">Введите почту</label>
+            <input type="text" id="email" name="email"><br>
+            
+            <label for="password">Введите пароль</label>
+            <input type="password" id="password" name="password"><br>
+            
+            <input type="submit" value="Войти">
+        </form>
+
+</body>
+</html>

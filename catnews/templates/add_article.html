@@ -5,7 +5,7 @@
     <title>Cat-news</title>
 </head>
 <body>
-    <form method="post" action="">
+    <form method="post" action="{% url 'add_article' %}" enctype="multipart/form-data">
         {% csrf_token %}
         
         <h3><label for="nickname">Введите ваш никнейм:</label>
@@ -16,8 +16,8 @@
 
         <h3><label for="content">Введите текст статьи:</label>
         <input type="text" id="content" name="content"><br></h3>
-
-        <input type="submit" value="Добавить">
+        
+        <input type="submit" value="Добавить"><br>
         
     </form><br>
 
