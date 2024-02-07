@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ news.title }}</title>
+
+</head>
+<body>
+        {% autoescape off %}
+        <img src="{{ news.image.url }}" alt="img" style="max-width: 200px">
+        {% endautoescape %}
+        <h2>{{ news.title }}</h2>
+        <p>{{ news.content }}</p>
+</body>
+</html>

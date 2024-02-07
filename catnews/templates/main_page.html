@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            text-align: center;
+            background-color: #aee8c9;
+            font-size: large;
+        }
+        hr {
+            border: 0;
+            height: 5px;
+            background-image: linear-gradient(to right, transparent, #E8C0A5, transparent);
+        }
+        .title {
+            font-family: 'Lucida Fax', monospace;
+            color: #511d5b;
+            max-width: 800px;
+            margin: 0 auto;       
+        }
+        .content {
+            font-family: "Unispace", monospace;
+            color: #511d5b;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Cat-news</title>
+</head>
+<body>
+    <form action="" method="get">
+        <select name="sort" id="sort">
+            <option value="rating">Rating</option>
+        </select>
+        <select name="priority_sorting" id="">
+            <option value="">От низкого к высокому</option>
+            <option value="-">От высокого к низкому</option>
+        </select>
+        <button>Sort</button>
+    </form>
+    
+    <button onclick="window.location.href = '/sign-up/';">Регистрация</button>
+    <button onclick="window.location.href = '/add_article/';">Добавить статью</button>
+    <button onclick="window.location.href = '/sign-in/';">Войти</button>
+
+    {% for news in data %}
+        <h2 class="title">{{ news.title }}</h2>
+        <p class="content">{{ news.content|truncatewords:10 }}</p>
+        <img src="{{ news.image }}" alt="img" style="max-width: 200px">
+        <a href="{% url 'article_page' news.id %}">Читать полностью</a>
+        <hr>
+    {% endfor %}
+
+</body>
+</html>

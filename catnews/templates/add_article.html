@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cat-news</title>
+</head>
+<body>
+    <form method="post" action="{% url 'add_article' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <h3><label for="nickname">Введите ваш никнейм:</label>
+        <input type="text" id="nickname" name="nickname"><br></h3>
+
+        <h3><label for="title">Введите название статьи:</label>
+        <input type="text" id="title" name="title"><br></h3>
+
+        <h3><label for="content">Введите текст статьи:</label>
+        <input type="text" id="content" name="content"><br></h3>
+        
+        <input type="submit" value="Добавить"><br>
+        
+    </form><br>
+
+</body>
+</html>
